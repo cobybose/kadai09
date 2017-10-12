@@ -31,7 +31,7 @@ if( $val["id"] != "" ){
   $_SESSION["chk_ssid"]  = session_id();
   $_SESSION["kanri_flg"] = $val['kanri_flg'];
   $_SESSION["name"]      = $val['name'];
-  header("Location: select.php");
+  header("Location: post.php");
 }else{
   //logout処理を経由して前画面へ
   header("Location: logout.php");

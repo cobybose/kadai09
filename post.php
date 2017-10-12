@@ -7,29 +7,20 @@ ssidChk();
 $id = $_GET["id"];
 
 //2.DB接続など
-try {
-  $pdo = new PDO('mysql:dbname=gs_db31;charset=utf8;host=localhost','root','');
-} catch (PDOException $e) {
-  exit('データベースに接続できませんでした。'.$e->getMessage());
-}
+$pdo = db_con();
 
-//２．データ登録SQL作成
-$stmt = $pdo->prepare("SELECT * FROM gs_bm_table WHERE id=:id");
-$stmt->bindValue(':id', $id);
+//3.SELECT * FROM gs_an_table WHERE id=***; を取得（bindValueを使用！）
+$stmt = $pdo->prepare("SELECT * FROM gs_an_table WHERE id=:id");
+$stmt->bindValue(":id",$id,PDO::PARAM_INT);
 $status = $stmt->execute();
 
-//３．データ表示
-$view="";
 if($status==false){
-  //execute（SQL実行時にエラーがある場合）
-  $error = $stmt->errorInfo();
-  exit("ErrorQuery:".$error[2]);
+  queryError($stmt);
 }else{
-  //Selectデータの数だけ自動でループしてくれる
-  $row = $stmt->fetch(); //$row["name"]
+  $row = $stmt->fetch();
 }
-?>
 
+?>
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -51,20 +42,19 @@ if($status==false){
 <!-- Head[End] -->
 
 <!-- Main[Start] -->
-<form method="post" action="bm_update_view.php">
+<form method="post" action="insert.php">
   <div class="jumbotron">
    <fieldset>
     <legend>ブックマーク</legend>
-     <label>書籍名：<input type="text" name="name" value="<?=$row["book"]?>"></label><br>
-     <label>URL：<input type="text" name="email" value="<?=$row["url"]?>"></label><br>
+     <label>書籍名：<input type="text" name="name"></label><br>
+     <label>URL：<input type="text" name="email"></label><br>
      <label>ステータス：
          <select name="status">
             <option value="未読">未読</option>
             <option value="読了">読了</option>
          </select>
      </label><br>
-     <label><textArea name="naiyou" rows="4" cols="40"><?=$row["comment"]?></textArea></label><br>
-     <input type="hidden" name="id" value="<?=$id?>">
+     <label><textArea name="naiyou" rows="4" cols="40"></textArea></label><br>
      <input type="submit" value="送信">
     </fieldset>
   </div>
@@ -74,9 +64,3 @@ if($status==false){
 
 </body>
 </html>
-
-
-
-
-
-

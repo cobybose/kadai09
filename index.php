@@ -1,41 +1,29 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>POSTデータ登録</title>
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <style>div{padding: 10px;font-size:16px;}</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet" href="css/main.css" />
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<style>div{padding: 10px;font-size:16px;}</style>
+<title>ログイン</title>
 </head>
 <body>
 
-<!-- Head[Start] -->
 <header>
+<!--    <nav class="navbar navbar-default">LOGIN</nav>-->
   <nav class="navbar navbar-default">
     <div class="container-fluid">
     <div class="navbar-header"><a class="navbar-brand" href="select.php">BOOK一覧</a></div>
   </nav>
 </header>
-<!-- Head[End] -->
 
-<!-- Main[Start] -->
-<form method="post" action="insert.php">
-  <div class="jumbotron">
-   <fieldset>
-    <legend>ブックマーク</legend>
-     <label>書籍名：<input type="text" name="name"></label><br>
-     <label>URL：<input type="text" name="email"></label><br>
-     <label>ステータス：
-         <select name="status">
-            <option value="未読">未読</option>
-            <option value="読了">読了</option>
-         </select>
-     </label><br>
-     <label><textArea name="naiyou" rows="4" cols="40"></textArea></label><br>
-     <input type="submit" value="送信">
-    </fieldset>
-  </div>
+<!-- lLOGINogin_act.php は認証処理用のPHPです。 -->
+<form name="form1" action="login_act.php" method="post">
+ID:<input type="text" name="lid" />
+PW:<input type="password" name="lpw" />
+<input type="submit" value="LOGIN" />
 </form>
-<!-- Main[End] -->
 
 
 </body>
